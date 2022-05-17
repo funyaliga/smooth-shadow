@@ -22,6 +22,16 @@ const routes: Array<RouteRecordRaw> = [
     },
     component: () => import(/* webpackChunkName: "group-user" */ '@/pages/home/index.vue'),
   },
+  {
+    path: '/test',
+    name: 'Test',
+    meta: {
+      title: 'test',
+      keepAlive: true,
+      requireAuth: true,
+    },
+    component: () => import(/* webpackChunkName: "group-user" */ '@/pages/test/index.vue'),
+  },
 ];
 
 const router = createRouter({
