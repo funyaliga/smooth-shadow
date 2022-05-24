@@ -30,5 +30,5 @@ export default defineConfig({
       reactivityTransform: true,
     }),
   ],
-  base: '/dist',
+  base: '/smooth-shadow/dist',
 });

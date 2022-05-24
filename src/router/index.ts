@@ -25,7 +25,7 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  history: createWebHistory('/dist/'),
+  history: createWebHistory('/smooth-shadow/dist/'),
   routes,
 });
 export default router;
