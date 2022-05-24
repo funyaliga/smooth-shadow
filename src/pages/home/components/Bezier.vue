@@ -1,8 +1,8 @@
 <template>
   <div
     :style="{
-      width: width + frameWidth,
-      height: height + frameWidth,
+      width: `${width + frameWidth}px`,
+      height: `${height + frameWidth}px`,
       position: 'relative',
       zIndex: 2,
     }"
@@ -22,10 +22,15 @@
         `"
       >
         <rect x="0" y="0" :width="width" :height="height" :fill="innerBackgroundColor" />
+        <foreignObject x="0" y="0" :width="width" :height="height">
+          <div class="content" xmlns="http://www.w3.org/1999/xhtml">
+            <slot></slot>
+          </div>
+        </foreignObject>
         <line
           :stroke="handleLineColor"
-          :strokeWidth="handleLineWidth"
-          strokeLinecap="round"
+          :stroke-width="handleLineWidth"
+          stroke-linecap="round"
           :x1="bottomLeft[0]"
           :y1="bottomLeft[1]"
           :x2="handleA[0]"
@@ -33,8 +38,8 @@
         />
         <line
           :stroke="handleLineColor"
-          :strokeWidth="handleLineWidth"
-          strokeLinecap="round"
+          :stroke-width="handleLineWidth"
+          stroke-linecap="round"
           :x1="topRight[0]"
           :y1="topRight[1]"
           :x2="handleB[0]"
@@ -46,8 +51,8 @@
         <circle :cx="handleB[0]" :cy="handleB[1]" :r="handleSize / 2" :fill="handleColor" />
         <path
           :stroke="curveColor"
-          :strokeWidth="curveLineWidth"
-          strokeLinecap="round"
+          :stroke-width="curveLineWidth"
+          stroke-linecap="round"
           fill="none"
           :d="`
             M${bottomLeft}
@@ -76,13 +81,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, watchEffect } from 'vue';
+import { ref, computed } from 'vue';
 import { useDrag } from '@vueuse/gesture';
-import useMeasure from '@/hooks/use-measure';
+// import useMeasure from '@/hooks/use-measure';
 
 const startRef = ref();
 const endRef = ref();
-const demo = ref();
 
 const {
   width = 500,
@@ -97,7 +101,7 @@ const {
   curveColor = '#318cfc',
   curveLineWidth = 4,
   value = [0, 0, 0, 0],
-  scrollContainerRef,
+  // scrollContainerRef,
 } = defineProps<{
   width?: number;
   height?: number;
@@ -110,12 +114,11 @@ const {
   handleLineWidth?: number;
   curveColor?: string;
   curveLineWidth?: number;
-  value: number[];
-  scrollContainerRef?: HTMLInputElement | null;
+  value: [number, number, number, number];
+  // scrollContainerRef?: HTMLInputElement | null;
 }>();
 
-const [p0 = 0, p1 = 0, p2 = 0, p3 = 0] = value;
-const [containerBoundsRef, bounds] = useMeasure({ scroll: true });
+// const [containerBoundsRef, bounds] = useMeasure({ scroll: true });
 const bottomLeft = [0, height];
 const topRight = [width, 0];
 const handleA = computed(() => {
@@ -171,5 +174,12 @@ useDrag(dragHandler('end'), {
   height: 8px;
   border-radius: 4px;
   background-color: #000;
+}
+
+.content {
+  display: flex;
+  height: 100%;
+  padding: 4px;
+  box-sizing: border-box;
 }
 </style>

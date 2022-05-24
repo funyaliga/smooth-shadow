@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
 import type { RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
@@ -22,20 +22,10 @@ const routes: Array<RouteRecordRaw> = [
     },
     component: () => import(/* webpackChunkName: "group-user" */ '@/pages/home/index.vue'),
   },
-  {
-    path: '/test',
-    name: 'Test',
-    meta: {
-      title: 'test',
-      keepAlive: true,
-      requireAuth: true,
-    },
-    component: () => import(/* webpackChunkName: "group-user" */ '@/pages/test/index.vue'),
-  },
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/dist/'),
   routes,
 });
 export default router;

@@ -1,8 +1,13 @@
 <template>
-  <div>
-    <label>
-      {{ label }}
-    </label>
+  <label>
+    <div class="hd">
+      <span>
+        {{ label }}
+      </span>
+      <span class="value">
+        {{ value }}
+      </span>
+    </div>
     <input
       type="range"
       :min="min"
@@ -12,12 +17,11 @@
       :style="cssVars"
       @input="onChange"
     />
-    {{ value }}
-  </div>
+  </label>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import type { StyleValue } from 'vue';
 
 const props = defineProps({
@@ -57,6 +61,21 @@ const onChange = (event: Event) => {
 </script>
 
 <style lang="scss" scoped>
+.hd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.value {
+  background-color: rgb(255, 255, 255);
+  padding: 3px 5px;
+  margin-left: 10px;
+  border-radius: 3px;
+  font-family: Inter;
+}
+
 input[type='range'] {
   -webkit-appearance: none;
   width: 100%;
